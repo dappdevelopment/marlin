@@ -1,10 +1,10 @@
-function cdnIFY() {
+function cdnIFY() { // gets text from text box input from CDN-ify
   var url = document.getElementById("url").value;
   console.log(url);
   // add user, url to blockchain?
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() { // displays info for balance, spent, history, live
   // get strings of account info from blockchain
   if (document.getElementById("balance") !== null) {
   var balance = "bal"
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(){
 }
 });
 
-function getHistory() {
+function getHistory() { // downloads all urls ever loaded as a .txt file
   var filename = "history";
   var type = ".txt";
   data = "get data from blockchain";
@@ -36,7 +36,7 @@ function getHistory() {
   }, 0); 
 }
 
-function getLive() {
+function getLive() { // downloads active urls as a .txt file
   var filename = "live";
   var type = ".txt";
   data = "get data from blockchain";
@@ -54,7 +54,7 @@ function getLive() {
   }, 0); 
 }
 
-function submit() {
+function submit() { // gets text from text fields to sign up a user
   var name = document.getElementById("name").value;
   var email = document.getElementById("email").value;
   var pw1 = document.getElementById("pw1").value;
