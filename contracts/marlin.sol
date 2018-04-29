@@ -10,7 +10,7 @@ contract Marlin {
 	}
 
 	struct Url {
-		uint256 creationTimestamp; // set once when add_url is called
+		uint256 creationTimestamp; // set once when addUrl is called
 		bool active; // true if the url is currently being served
 		string url; // weblink to the content
 		UrlStats stats; // vital stats for this url
@@ -33,13 +33,11 @@ contract Marlin {
 
 	function createPublisher(
 		address _addr, string _name, string _email) public returns (bool success) {
-		Publisher memory p = Publisher({
-			name: _name,
-			email: _email, 
-			creationTimestamp: block.timestamp,
-			balance: 0,
-			urls: new Url[](0)
-		});
+		Publisher storage p;
+		p.name = _name;
+		p.email = _email;
+		p.creationTimestamp = block.timestamp;
+		p.balance = 0;
 		publishers[_addr] = p;
 		success = true;
 	}
@@ -53,8 +51,21 @@ contract Marlin {
         success = true;
 	}
 
-	function getBalance(address _addr) public returns (uint256) {
+	function getBalance(address _addr) public view returns (uint256) {
 		require(_addr == msg.sender);
 		return publishers[_addr].balance;
+	}
+
+	function addUrl(string url) public returns (bool success) {
+		publishers[msg.sender].urls.push(Url({
+			creationTimestamp: block.timestamp,
+			active: true,
+			url: url,
+			stats: UrlStats({
+				replication: 0,
+				volume: 0
+			})
+		}));
+		success = true;
 	}
 }

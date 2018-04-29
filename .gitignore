@@ -60,3 +60,5 @@ typings/
 # temp files
 *.un~
 
+# truffle build
+build/
