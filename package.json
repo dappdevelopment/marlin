@@ -1,0 +1,23 @@
+{
+  "name": "marlin",
+  "version": "1.0.0",
+  "description": "Decentralized Content Delivery Network",
+  "main": "index.js",
+  "scripts": {
+      "start": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratyakshs/marlin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pratyakshs/marlin/issues"
+  },
+  "homepage": "https://github.com/pratyakshs/marlin#readme",
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  }
+}
