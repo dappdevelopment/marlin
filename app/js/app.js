@@ -94,6 +94,13 @@ function app() {
 
       var contractAddress = contractData.networks[networkId].address;
       contract = new web3.eth.Contract(contractData.abi, contractAddress);
+
+      contract.methods.createPublisher(userAccount, "temp_name", "temp_email").call()
+      .then(console.log('publisher created'))
+      .catch(function (e) {
+        console.log('error in createPublisher')
+      });
+      
     })
     .then(refreshBalance)
      .catch(console.error);
