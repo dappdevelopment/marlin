@@ -4,7 +4,7 @@
   "description": "Decentralized Content Delivery Network",
   "main": "index.js",
   "scripts": {
-      "start": "lite-server"
+    "start": "lite-server"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "homepage": "https://github.com/pratyakshs/marlin#readme",
   "devDependencies": {
     "lite-server": "^2.3.0"
+  },
+  "dependencies": {
+    "browser-sync": "^2.24.0",
+    "live-server": "^1.2.0"
   }
 }

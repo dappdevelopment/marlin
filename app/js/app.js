@@ -52,7 +52,7 @@ function getLive() { // downloads active urls as a .txt file
   setTimeout(function() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);  
-  }, 0); 
+  }, 0);
 }
 
 function submit() { // gets text from text fields to sign up a user
@@ -101,7 +101,7 @@ function app() {
 
     function refreshBalance() { // Returns web3's PromiEvent
        // Calling the contract (try with/without declaring view)
-       contract.methods.balanceOf(userAccount).call().then(function (balance) {
+       contract.methods.getBalance(userAccount).call().then(function (balance) {
          $('#display').text(balance + " CDT");
          $("#loader").hide();
        });
