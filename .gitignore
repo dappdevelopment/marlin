@@ -59,6 +59,7 @@ typings/
 
 # temp files
 *.un~
+.DS_Store
 
 # truffle build
 build/

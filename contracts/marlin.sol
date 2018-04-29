@@ -1,26 +1,24 @@
-// abstract idea for the contract
+pragma solidity ^0.4.23;
+
 contract Marlin {
 
 	uint256 totalSupply = 7.6e9;
 	event BalanceChanged(address indexed _address, uint256 _balance);
 
-	struct UrlStats {
-		uint256 replication; // number of peers serving this url
-		uint256 volume; // total volume of traffic (in bytes) served
-	}
-
 	struct Url {
 		uint256 creationTimestamp; // set once when addUrl is called
 		bool active; // true if the url is currently being served
 		string url; // weblink to the content
-		UrlStats stats; // vital stats for this url
+		uint256 replication; // number of peers serving this url
+		uint256 volume; // total volume of traffic (in bytes) served
 	}
 
 	struct Publisher {
 		string name; // used only for display purposes
 		string email; // used only for display purposes
 		uint256 creationTimestamp; // block timestamp of when createPublisher called
-		uint256 balance;
+		uint256 balance; // LIN balance for this publisher
+		uint256 numUrls; // total number of urls, also the size of `urls` array
 		Url[] urls; // list of urls added by publisher
 	}
 
@@ -61,11 +59,25 @@ contract Marlin {
 			creationTimestamp: block.timestamp,
 			active: true,
 			url: url,
-			stats: UrlStats({
-				replication: 0,
-				volume: 0
-			})
+			replication: 0,
+			volume: 0
 		}));
 		success = true;
+	}
+
+	function getUrl(uint256 _index) public returns (
+		uint256 _creationTimestamp,
+		bool _active,
+		string _url,
+		uint256 _replication,
+		uint256 _volume
+	) {
+		require(_index < publishers[msg.sender].numUrls);
+		Url memory u = publishers[msg.sender].urls[_index];
+		_creationTimestamp = u.creationTimestamp;
+		_active = u.active;
+		_url = u.url;
+		_replication = u.replication;
+		_volume = u.volume;
 	}
 }
