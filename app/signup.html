@@ -18,18 +18,24 @@
     </a>
     <nav>
       <ul>
-        <li><a href="#hero">CDN-IFY</a></li>
+        <li><a href="index.html">CDN-IFY</a></li>
 		  <li><a href="account.html">ACCOUNT</a></li>
-	    <li><a href="signup.html">SIGN UP</a></li>
+	    <li><a href="#">SIGN UP</a></li>
       </ul>
     </nav>
   </header>
-  <!-- CDN-IFY Section -->
+  
   <section class="hero" id="hero">
-    
-    <h2 class="hero_header">CDN-<font color="#717070">IFY</font></h2>
-		<input type="url" name="url" id="url" class="url">
-    <input onclick="cdnIFY()" type="submit" name="submit" id="submit" class="cdnbutton" value="CDN-IFY">
+    <div>
+   <input type="text" name="name" id="name" class="url" placeholder="Name">
+ </div><div>
+  <input type="email" name="email" id="email" class="url" placeholder="Email">
+  </div><div>
+  <input type="password" name="pw1" id="pw1" class="url" placeholder="Password">
+  </div><div>
+  <input type="password" name="pw2" id="pw2" class="url" placeholder="Password (again)">
+</div>
+    <input onclick="submit()" type="submit" name="submit" id="submit" class="cdnbutton" value="Sign Up">
 </section>
 	</div>
 </body>
