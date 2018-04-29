@@ -1,23 +1,28 @@
 function cdnIFY() { // gets text from text box input from CDN-ify
   var url = document.getElementById("url").value;
   console.log(url);
-  app()
+  app();
   // add user, url to blockchain?
 }
 
-document.addEventListener('DOMContentLoaded', function() { // displays info for balance, spent, history, live
-  // get strings of account info from blockchain
+var bal;
+var spent;
+var history;
+var live;
+
+
+function changeBal() {
+  contract.methods.getBalance(userAccount).call().then(function (balance) {
+         bal = balance;
+         console.log(bal)
+       });
   if (document.getElementById("balance") !== null) {
-  var balance = "bal"
-  var spent = "spt"
-  var history = "hst"
-  var live = "liv"
-  document.getElementById("balance").innerHTML = balance;
-  document.getElementById("spent").innerHTML = spent;
-  document.getElementById("history").innerHTML = history;
-  document.getElementById("live").innerHTML = live;
+    document.getElementById("balance").innerHTML = bal;
+    document.getElementById("spent").innerHTML = spent;
+    document.getElementById("history").innerHTML = history;
+    document.getElementById("live").innerHTML = live;
+  }
 }
-});
 
 function getHistory() { // downloads all urls ever loaded as a .txt file
   var filename = "history";
@@ -100,6 +105,10 @@ function app() {
       .catch(function (e) {
         console.log('error in createPublisher')
       });
+      contract.methods.getBalance(userAccount).call().then(function (balance) {
+         bal = balance;
+         console.log(bal)
+       });
       
     })
     .then(refreshBalance)
