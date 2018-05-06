@@ -1,3 +1,15 @@
+var sql = require('sql'); //need webpack
+
+var dbUser = sql.define({
+  name: 'user',
+  columns: ['id', 'name', 'email']
+});
+
+var dbUrl = sql.define({
+  name: 'url',
+  columns: ['id', 'url', 'timestamp', 'user']
+});
+
 function cdnIFY() { // gets text from text box input from CDN-ify
   var newUrl = document.getElementById("url").value;
   if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
