@@ -18,7 +18,9 @@ contract Marlin {
 		string email; // used only for display purposes
 		uint256 creationTimestamp; // block timestamp of when createPublisher called
 		uint256 balance; // LIN balance for this publisher
+		uint256 spent; // total LIN spent
 		uint256 numUrls; // total number of urls, also the size of `urls` array
+		uint256 numLiveUrls;
 		Url[] urls; // list of urls added by publisher
 	}
 
@@ -26,16 +28,19 @@ contract Marlin {
 	
 	constructor() public {
 		createPublisher(msg.sender, "marlin-admin", "admin@marlin.pro");
-		publishers[msg.sender].balance = totalSupply;
+		publishers[msg.sender].balance = 15; /*reasonable number for dev*/ //totalSupply;
+		publishers[msg.sender].spent = 0;
+		publishers[msg.sender].numUrls = 0;
+		publishers[msg.sender].numLiveUrls = 0;
 	}
 
-	function createPublisher(
-		address _addr, string _name, string _email) public returns (bool success) {
+	function createPublisher(address _addr, string _name, string _email) public returns (bool success) {
 		Publisher storage p;
 		p.name = _name;
 		p.email = _email;
 		p.creationTimestamp = block.timestamp;
 		p.balance = 0;
+		p.spent = 0;
 		publishers[_addr] = p;
 		success = true;
 	}
@@ -54,14 +59,25 @@ contract Marlin {
 		return publishers[_addr].balance;
 	}
 
-	function addUrl(string url) public returns (bool success) {
-		publishers[msg.sender].urls.push(Url({
+	function getSpent(address _addr) public view returns (uint256) {
+		require(_addr == msg.sender);
+		return publishers[_addr].spent;
+	}
+
+	function test() public returns (string) {
+		return "Reading contract data.";
+	}
+
+	function addUrl(string url, address _addr) public returns (bool success) {
+		publishers[_addr].urls.push(Url({
 			creationTimestamp: block.timestamp,
 			active: true,
 			url: url,
 			replication: 0,
 			volume: 0
 		}));
+		publishers[msg.sender].spent += 1;
+		publishers[msg.sender].numUrls += 1;
 		success = true;
 	}
 
@@ -80,4 +96,10 @@ contract Marlin {
 		_replication = u.replication;
 		_volume = u.volume;
 	}
+	function getAllUrls(address _addr) public returns (uint256) {
+		return publishers[msg.sender].numUrls;
+	}
+	function getLiveUrls(address _addr) public returns (uint256) {
+		return publishers[msg.sender].numLiveUrls;
+	} 
 }
