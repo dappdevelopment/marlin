@@ -55,19 +55,6 @@ function getLive() { // downloads active urls as a .txt file
   }, 0);
 }
 
-function submit() { // gets text from text fields to sign up a user
-  var name = document.getElementById("name").value;
-  var email = document.getElementById("email").value;
-  var pw1 = document.getElementById("pw1").value;
-  var pw2 = document.getElementById("pw2").value;
-  if (pw1 == pw2) {
-
-  }
-  console.log(name)
-  console.log(email)
-  console.log(pw1)
-}
-
 function app() {
   if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
   web3 = new Web3(web3.currentProvider); // MetaMask injected Ethereum provider
@@ -109,8 +96,7 @@ function app() {
     function refreshBalance() { // Returns web3's PromiEvent
        // Calling the contract (try with/without declaring view)
        contract.methods.getBalance(userAccount).call().then(function (balance) {
-         $('#display').text(balance + " CDT");
-         $("#loader").hide();
+         console.log(balance);
        });
      }
     function transfer(to, amount) {
