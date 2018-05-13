@@ -161,6 +161,7 @@ function getLive() { // downloads active urls as a .txt file
       window.URL.revokeObjectURL(url);  
   }, 0);
 }
+
 /// </for the url metric buttons> ///
 
 function app() {
@@ -224,4 +225,5 @@ contract.methods.getAllUrls(userAccount).call().then(function (urls) {
             });
         }
       })
+
 */
