@@ -19,6 +19,7 @@ contract Marlin {
         uint256 creationTimestamp; // block timestamp of when createPublisher called
         uint256 balance; // LIN balance for this publisher
         uint256 numUrls; // total number of urls, also the size of `urls` array
+        uint256 exists; // lets us know if it exists
         Url[] urls; // list of urls added by publisher
     }
 
@@ -41,6 +42,7 @@ contract Marlin {
         p.email = _email;
         p.creationTimestamp = block.timestamp;
         p.balance = 0;
+        p.exists = 1;
         publishers[_addr] = p;
         success = true;
     }
@@ -81,6 +83,11 @@ contract Marlin {
         publishers[_addr].numUrls+=1;
         publishers[msg.sender].numUrls+=1;
         success = true;
+    }
+    function getPublisher(address _addr) public returns (bool exists) {
+        if (publishers[_addr].exists != 1) {
+            exists = false;
+        } else exists = true;
     }
 
     function getUrl(uint256 _index) public returns (

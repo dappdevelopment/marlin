@@ -38,6 +38,9 @@ function cdnIFY() {
       contract.methods.getAllUrls(userAccount).call().then(function (url) {
          console.log("Total urls on account "+String(userAccount)+": "+String(url));
        });
+      contract.methods.getPublisher(userAccount).call().then(function (exists){
+        console.log(exists);
+      });
       //distribute(url) // ----> will get file. Use Pycurl?
     }).catch(console.error);
       /// </do contract methods> ///
