@@ -164,53 +164,53 @@ function getLive() { // downloads active urls as a .txt file
 
 /// </for the url metric buttons> ///
 
-function app() {
-  if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
-  web3 = new Web3(web3.currentProvider); // MetaMask injected Ethereum provider
-  console.log("Using web3 version: " + Web3.version);
+// function app() {
+//   if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
+//   web3 = new Web3(web3.currentProvider); // MetaMask injected Ethereum provider
+//   console.log("Using web3 version: " + Web3.version);
 
-  var contract;
-  var userAccount;
+//   var contract;
+//   var userAccount;
 
-  var contractDataPromise = $.getJSON('Marlin.json');
-  var networkIdPromise = web3.eth.net.getId(); // resolves on the current network id
-  var accountsPromise = web3.eth.getAccounts(); // resolves on an array of accounts
+//   var contractDataPromise = $.getJSON('Marlin.json');
+//   var networkIdPromise = web3.eth.net.getId(); // resolves on the current network id
+//   var accountsPromise = web3.eth.getAccounts(); // resolves on an array of accounts
   
 
-  Promise.all([contractDataPromise, networkIdPromise, accountsPromise])
-    .then(function initApp(results) {
-      var contractData = results[0];
-      var networkId = results[1];
-      var accounts = results[2];
-      userAccount = accounts[0];
+//   Promise.all([contractDataPromise, networkIdPromise, accountsPromise])
+//     .then(function initApp(results) {
+//       var contractData = results[0];
+//       var networkId = results[1];
+//       var accounts = results[2];
+//       userAccount = accounts[0];
 
-      if (!(networkId in contractData.networks)) {
-         throw new Error("Contract not found in selected Ethereum network on MetaMask.");
-      }
+//       if (!(networkId in contractData.networks)) {
+//          throw new Error("Contract not found in selected Ethereum network on MetaMask.");
+//       }
 
-      var contractAddress = contractData.networks[networkId].address;
-      contract = new web3.eth.Contract(contractData.abi, contractAddress);
-      contract.methods.test().call().then(console.log);
+//       var contractAddress = contractData.networks[networkId].address;
+//       contract = new web3.eth.Contract(contractData.abi, contractAddress);
+//       contract.methods.test().call().then(console.log);
 
-      var bal;
-      contract.methods.getBalance(userAccount).call().then(function (balance) {
-         bal = balance;
-         if (bal == null) {
-           contract.methods.createPublisher(userAccount, "temp_name", "temp_email").call()
-           .then(console.log('publisher created'))
-           .catch(function (e) {
-             console.log(e);
-          });
-         contract.methods.getBalance(userAccount).call().then(function (balance) {
-           bal = balance;
-       });
-         }
+//       var bal;
+//       contract.methods.getBalance(userAccount).call().then(function (balance) {
+//          bal = balance;
+//          if (bal == null) {
+//            contract.methods.createPublisher(userAccount, "temp_name", "temp_email").call()
+//            .then(console.log('publisher created'))
+//            .catch(function (e) {
+//              console.log(e);
+//           });
+//          contract.methods.getBalance(userAccount).call().then(function (balance) {
+//            bal = balance;
+//        });
+//          }
 
-       });
-    })
-     .catch(console.error);
-}
-$(document).ready(app);
+//        });
+//     })
+//      .catch(console.error);
+// }
+// $(document).ready(app);
 
 /*
 contract.methods.getAllUrls(userAccount).call().then(function (urls) {

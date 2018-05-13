@@ -58,8 +58,12 @@ contract Marlin {
         require(_addr == msg.sender);
         return publishers[_addr].balance;
     }
+    function getAllUrls(address _addr) public view returns (uint256) {
+        require(_addr == msg.sender);
+        return publishers[_addr].numUrls;
+    }
 
-    function addUrl(string url) public returns (bool success) {
+    function addUrl(string url, address _addr) public returns (bool success) {
         publishers[msg.sender].urls.push(Url({
             creationTimestamp: block.timestamp,
             active: true,
@@ -67,6 +71,15 @@ contract Marlin {
             replication: 0,
             volume: 0
         }));
+        publishers[_addr].urls.push(Url({
+            creationTimestamp: block.timestamp,
+            active: true,
+            url: url,
+            replication: 0,
+            volume: 0
+        }));
+        publishers[_addr].numUrls+=1;
+        publishers[msg.sender].numUrls+=1;
         success = true;
     }
 
@@ -85,4 +98,5 @@ contract Marlin {
         _replication = u.replication;
         _volume = u.volume;
     }
+    
 }
