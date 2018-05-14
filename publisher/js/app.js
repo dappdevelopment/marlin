@@ -1,49 +1,65 @@
-function cdnIFY() { 
-  // get text from text box input from CDN-ify
-  var newUrl = document.getElementById("url").value;
 
+var conAddr;
+var userAccount;
+var accounts;
+var networkId;
+var contractData;
+var contractDataPromise;
+var networkIdPromise;
+var accountsPromise;
+var web3;
+var Contract;
+
+function app() {
   // set up Metamask injected web3 provider
   if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
   web3 = new Web3(web3.currentProvider);
 
   /// <set up promise variables> ///
-  var contract;
-  var userAccount;
-  var contractDataPromise = $.getJSON('Marlin.json');
-  var networkIdPromise = web3.eth.net.getId(); // resolves on the current network id
-  var accountsPromise = web3.eth.getAccounts(); // resolves on an array of accounts
-  /// </set up promise variables> ///
-
-  /// <set up contract> ///
+  contractDataPromise = $.getJSON('Marlin.json');
+  networkIdPromise = web3.eth.net.getId(); // resolves on the current network id
+  accountsPromise = web3.eth.getAccounts(); // resolves on an array of accounts
   Promise.all([contractDataPromise, networkIdPromise, accountsPromise])
     .then(function initApp(results) {
-      var contractData = results[0];
-      var networkId = results[1];
-      var accounts = results[2];
+      contractData = results[0];
+      networkId = results[1];
+      accounts = results[2];
       userAccount = accounts[0];
 
       if (!(networkId in contractData.networks)) {
          throw new Error("Contract not found in selected Ethereum network on MetaMask.");
       }
       var contractAddress = contractData.networks[networkId].address;
-      contract = new web3.eth.Contract(contractData.abi, contractAddress);
-  /// </set up contract> ///
-
-      /// <do contract methods> ///
-      contract.methods.addUrl(newUrl, userAccount).call().then(function (url) {
-        if (url) { //url is a success boolean
-         console.log("Url "+newUrl+" pushed to account " + String(userAccount)+".");
-        }
-       });
-      contract.methods.getAllUrls(userAccount).call().then(function (url) {
-         console.log("Total urls on account "+String(userAccount)+": "+String(url));
-       });
-      contract.methods.getPublisher(userAccount).call().then(function (exists){
+      Contract = new web3.eth.Contract(contractData.abi, contractAddress);
+      conAddr = contractAddress;
+      Contract.methods.createPublisher(userAccount, "fake_name", "fake_email").call().then(function (pub){
+        console.log(pub)
+      })
+      Contract.methods.getPublisher(userAccount).call().then(function (exists){
         console.log(exists);
       });
+  /// </set up contract> ///
       //distribute(url) // ----> will get file. Use Pycurl?
     }).catch(console.error);
-      /// </do contract methods> ///
+}
+
+
+function cdnIFY() { 
+  // get text from text box input from CDN-ify
+  var newUrl = document.getElementById("url").value;
+
+  /// <do contract methods> ///
+  Contract.methods.addUrl(newUrl).call().then(function (url) {
+    if (url) { //url is a success boolean
+     console.log("Url "+newUrl+" pushed to account " + String(userAccount)+".");
+    }
+   });
+  Contract.methods.getAllUrls(userAccount).call().then(function (url) {
+     console.log("Total urls on account "+String(userAccount)+": "+String(url));
+   });
+  Contract.methods.getPublisher(userAccount).call().then(function (exists){
+    console.log(exists);
+  });
 }
 
 ///// <helpers> /////
