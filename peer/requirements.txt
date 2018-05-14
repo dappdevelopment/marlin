@@ -10,3 +10,4 @@ pyspark==2.2.1
 pytz==2018.4
 six==1.11.0
 Werkzeug==0.14.1
+wget==3.2

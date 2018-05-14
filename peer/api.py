@@ -1,60 +1,27 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
 api = Api(app)
 
-URLS = {
-    'url1': {'fetched': True},
-}
+def download_file(url):
+    local_filename = url.split('/')[-1]
+    r = requests.get(url, stream=True)
+    with open(local_filename, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk:
+                f.write(chunk)
+    return local_filename
 
-
-def abort_if_url_doesnt_exist(url):
-    if url not in URLS:
-        abort(404, message="Url {} doesn't exist".format(url))
-
-parser = reqparse.RequestParser()
-parser.add_argument('task')
-
-
-# Url
-# shows a single url item and lets you delete a url item
-class Url(Resource):
-    def get(self, url):
-        abort_if_url_doesnt_exist(url)
-        return URLS[url]
-
-    def delete(self, url):
-        abort_if_url_doesnt_exist(url)
-        del URLS[url]
-        return '', 204
-
-    def put(self, url):
-        args = parser.parse_args()
-        task = {'task': args['task']}
-        URLS[url] = task
-        return task, 201
-
-
-# UrlList
-# shows a list of all urls, and lets you POST to add new urls
-class UrlList(Resource):
+class AddUrl(Resource):
     def get(self):
-        return URLS
+        # abort_if_url_doesnt_exist(url)
+        url = request.args.get('url')
+        filename = download_file(url)
+        print('saved to file', filename)
+        return url
 
-    def post(self):
-        args = parser.parse_args()
-        url = int(max(URLS.keys()).lstrip('url')) + 1
-        url = 'url%i' % url
-        URLS[url] = {'task': args['task']}
-        return URLS[url], 201
-
-##
-## Actually setup the Api resource routing here
-##
-api.add_resource(UrlList, '/urls')
-api.add_resource(Url, '/urls/<url>')
-
+api.add_resource(AddUrl, '/addUrl')
 
 if __name__ == '__main__':
     app.run(debug=True)
