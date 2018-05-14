@@ -1,4 +1,3 @@
-
 var conAddr;
 var userAccount;
 var accounts;
@@ -49,7 +48,7 @@ function cdnIFY() {
   var newUrl = document.getElementById("url").value;
 
   /// <do contract methods> ///
-  Contract.methods.addUrl(newUrl).call().then(function (url) {
+  Contract.methods.addUrl(newUrl).send({from: userAccount}).then(function (url) {
     if (url) { //url is a success boolean
      console.log("Url "+newUrl+" pushed to account " + String(userAccount)+".");
     }
@@ -86,52 +85,42 @@ function saveBlobAsFile(blob, fileName) {
 }
 ///// </helpers> /////
 
-function updateAccounts() { 
-  // set up Metamask injected web3 provider
-  if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
+function updateAccounts() {
+if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
   web3 = new Web3(web3.currentProvider);
-
-  /// <set up promise variables> ///
-  var contract;
-  var userAccount;
-  var contractDataPromise = $.getJSON('Marlin.json');
-  var networkIdPromise = web3.eth.net.getId(); // resolves on the current network id
-  var accountsPromise = web3.eth.getAccounts(); // resolves on an array of accounts
-  /// </set up promise variables> ///
-
-  /// <set up contract> ///
+  var bal,spent,hist,live;
+   contractDataPromise = $.getJSON('Marlin.json');
+  networkIdPromise = web3.eth.net.getId(); // resolves on the current network id
+  accountsPromise = web3.eth.getAccounts(); // resolves on an array of accounts
   Promise.all([contractDataPromise, networkIdPromise, accountsPromise])
     .then(function initApp(results) {
-      var contractData = results[0];
-      var networkId = results[1];
-      var accounts = results[2];
+      contractData = results[0];
+      networkId = results[1];
+      accounts = results[2];
       userAccount = accounts[0];
 
       if (!(networkId in contractData.networks)) {
          throw new Error("Contract not found in selected Ethereum network on MetaMask.");
       }
-
       var contractAddress = contractData.networks[networkId].address;
-      contract = new web3.eth.Contract(contractData.abi, contractAddress);
-  /// </set up contract> ///
-
-      /// <do contract methods> ///
-      var bal,spent,hist,live;
-      contract.methods.getBalance(userAccount).call().then(function (balance) {
+      Contract = new web3.eth.Contract(contractData.abi, contractAddress);
+      conAddr = contractAddress;
+      Contract.methods.getBalance(userAccount).call().then(function (balance) {
          bal = balance;
+
        });
-      contract.methods.getSpent(userAccount).call().then(function (sp) {
+      Contract.methods.getSpent(userAccount).call().then(function (sp) {
          spent = sp;
        });
-      contract.methods.getAllUrls(userAccount).call().then(function (url) {
+      Contract.methods.getAllUrls(userAccount).call().then(function (url) {
          hist = url;
+         console.log(url)
        });
-      contract.methods.getLiveUrls(userAccount).call().then(function (url) {
+      Contract.methods.getLiveUrls(userAccount).call().then(function (url) {
          live = url;
          changeBal(bal, spent, hist, live);
        });
-    }).catch(console.error);
-      /// </do contract methods> ///
+    });
 }
 
 ///// <helpers> /////

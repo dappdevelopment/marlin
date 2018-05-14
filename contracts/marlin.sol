@@ -20,6 +20,8 @@ contract Marlin {
         uint256 balance; // LIN balance for this publisher
         uint256 numUrls; // total number of urls, also the size of `urls` array
         uint256 exists; // lets us know if it exists
+        uint256 spent;
+        uint256 numLiveUrls;
         Url[] urls; // list of urls added by publisher
     }
 
@@ -27,7 +29,7 @@ contract Marlin {
     
     constructor() public {
         createPublisher(msg.sender, "marlin-admin", "admin@marlin.pro");
-        publishers[msg.sender].balance = totalSupply;
+        publishers[msg.sender].balance = 2000000;
     }
     
     function getPublisherInfo(address _addr) public returns (string name, string email) {
@@ -43,6 +45,8 @@ contract Marlin {
         p.creationTimestamp = block.timestamp;
         p.balance = 0;
         p.exists = 1;
+        p.numLiveUrls = 0;
+        p.spent = 0;
         publishers[_addr] = p;
         success = true;
     }
@@ -58,14 +62,22 @@ contract Marlin {
 
     function getBalance(address _addr) public view returns (uint256) {
         require(_addr == msg.sender);
-        return publishers[_addr].balance;
+        return publishers[_addr].balance - publishers[_addr].spent;
+    }
+    function getSpent(address _addr) public view returns (uint256) {
+        require(_addr == msg.sender);
+        return publishers[_addr].spent;
+    }
+    function getLiveUrls(address _addr) public view returns (uint256) {
+        require(_addr == msg.sender);
+        return publishers[_addr].numLiveUrls;
     }
     function getAllUrls(address _addr) public view returns (uint256) {
         require(_addr == msg.sender);
         return publishers[_addr].numUrls;
     }
 
-    function addUrl(string url, address _addr) public returns (bool success) {
+    function addUrl(string url) public returns (bool success) {
         publishers[msg.sender].urls.push(Url({
             creationTimestamp: block.timestamp,
             active: true,
@@ -73,15 +85,9 @@ contract Marlin {
             replication: 0,
             volume: 0
         }));
-        publishers[_addr].urls.push(Url({
-            creationTimestamp: block.timestamp,
-            active: true,
-            url: url,
-            replication: 0,
-            volume: 0
-        }));
-        publishers[_addr].numUrls+=1;
         publishers[msg.sender].numUrls+=1;
+        publishers[msg.sender].numLiveUrls+=1; //add a remove url function
+        publishers[msg.sender].spent+=100;
         success = true;
     }
     function getPublisher(address _addr) public returns (bool exists) {
