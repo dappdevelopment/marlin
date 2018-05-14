@@ -53,12 +53,13 @@ function cdnIFY() {
      console.log("Url "+newUrl+" pushed to account " + String(userAccount)+".");
     }
    });
-  Contract.methods.getAllUrls(userAccount).call().then(function (url) {
+  Contract.methods.getAllUrls(userAccount).call({from: userAccount}).then(function (url) {
      console.log("Total urls on account "+String(userAccount)+": "+String(url));
    });
   Contract.methods.getPublisher(userAccount).call().then(function (exists){
     console.log(exists);
   });
+
 }
 
 ///// <helpers> /////
@@ -105,18 +106,18 @@ if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being 
       var contractAddress = contractData.networks[networkId].address;
       Contract = new web3.eth.Contract(contractData.abi, contractAddress);
       conAddr = contractAddress;
-      Contract.methods.getBalance(userAccount).call().then(function (balance) {
+      Contract.methods.getBalance(userAccount).call({from: userAccount}).then(function (balance) {
          bal = balance;
 
        });
-      Contract.methods.getSpent(userAccount).call().then(function (sp) {
+      Contract.methods.getSpent(userAccount).call({from: userAccount}).then(function (sp) {
          spent = sp;
        });
-      Contract.methods.getAllUrls(userAccount).call().then(function (url) {
+      Contract.methods.getAllUrls(userAccount).call({from: userAccount}).then(function (url) {
          hist = url;
          console.log(url)
        });
-      Contract.methods.getLiveUrls(userAccount).call().then(function (url) {
+      Contract.methods.getLiveUrls(userAccount).call({from: userAccount}).then(function (url) {
          live = url;
          changeBal(bal, spent, hist, live);
        });
