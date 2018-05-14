@@ -1,3 +1,5 @@
+import requests
+
 from flask import Flask, request
 from flask_restful import reqparse, abort, Api, Resource
 
@@ -15,11 +17,13 @@ def download_file(url):
 
 class AddUrl(Resource):
     def get(self):
-        # abort_if_url_doesnt_exist(url)
-        url = request.args.get('url')
-        filename = download_file(url)
-        print('saved to file', filename)
-        return url
+        try:
+            url = request.args.get('url')
+            filename = download_file(url)
+            print('saved to file', filename)
+            return filename, 200
+        except:
+            return None, 400
 
 api.add_resource(AddUrl, '/addUrl')
 
