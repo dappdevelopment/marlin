@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marlin Publisher App</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="css/app.css" rel="stylesheet" type="text/css">
 <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -13,27 +14,37 @@
 </head>
 <body>
 <!-- Main Container -->
-<div class="container"> 
+
   <!-- Navigation -->
   <header> <a href="">
     <h4 class="logo">MARLIN PUBLISHER</h4>
     </a>
     <nav>
       <ul>
-        <li><a href="#hero">CDN-IFY</a></li>
-		  <li><a href="account.html" onclick="updateAccounts()">ACCOUNT</a></li>
+        <li class="menu"><a href="#hero">CDN-IFY</a></li>
+		  <li class="menu"><a href="account.html" onclick="updateAccounts()">ACCOUNT</a></li>
       </ul>
     </nav>
+    
+
   </header>
   <!-- CDN-IFY Section -->
   <section class="hero" id="hero">
     
     <h2 class="hero_header">CDN-<font color="#717070">IFY</font></h2>
-		<input type="url" name="url" id="url" class="url">
+		<input type="url" name="url" id="url" class="url" placeholder="url"><input type="number" name="number" id="number" class="number" placeholder="Budget">
     <input onclick="cdnIFY()" type="submit" name="submit" id="submit" class="cdnbutton" value="CDN-IFY">
     <input onclick="app()" type="submit" name="create" id="submit" class="cdnbutton" value="CREATE PUBLISHER">
     <h3 id="label"></h3>
+    <div class="smush">
+    <div class="panel panel-primary" id="result_panel">
+    <div class="panel-heading"><h3 class="panel-title">Marlin Peers</h3>
+    </div>
+    <div class="panel-body" id="pl">
+        
+    </div>
+</div>
+</div>
 </section>
-	</div>
 </body>
 </html> 

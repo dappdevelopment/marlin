@@ -25,7 +25,17 @@ contract Marlin {
         Url[] urls; // list of urls added by publisher
     }
 
+    struct Peer {
+        string name; // used only for display purposes
+        uint256 creationTimestamp; // block timestamp of when createPeer called
+        uint256 balance; // LIN balance for this peer
+        uint256 numUrls; // total number of urls peer is serving, also the size of `urls` array
+        uint256 exists; // lets us know if it exists
+        Url[] urls; // list of urls added by publisher
+    }
+
     mapping (address => Publisher) private publishers;
+    mapping (address => Peer) private peers;
     
     constructor() public {
         createPublisher(msg.sender, "marlin-admin", "admin@marlin.pro");
@@ -76,6 +86,9 @@ contract Marlin {
         require(_addr == msg.sender);
         return publishers[_addr].numUrls;
     }
+    function getPeers(address _addr) public view returns (string) {
+        return "0x0,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,0x9,";
+    }
 
     function addUrl(string url) public returns (bool success) {
         publishers[msg.sender].urls.push(Url({
@@ -87,8 +100,13 @@ contract Marlin {
         }));
         publishers[msg.sender].numUrls+=1;
         publishers[msg.sender].numLiveUrls+=1; //add a remove url function
-        publishers[msg.sender].spent+=100;
         success = true;
+    }
+    function spend(address _addr, uint256 spent) public returns (bool success) {
+        require(_addr == msg.sender);
+        publishers[_addr].balance -= spent;
+        publishers[_addr].spent += spent;
+        return success;
     }
     function getPublisher(address _addr) public returns (bool exists) {
         if (publishers[_addr].exists != 1) {

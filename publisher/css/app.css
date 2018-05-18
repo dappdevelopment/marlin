@@ -27,6 +27,7 @@ header {
 	background-color: #52bad5;
 	border-bottom: 1px solid #2C9AB7;
 }
+
 .logo {
 	color: #fff;
 	font-weight: bold;
@@ -36,6 +37,10 @@ header {
 	margin-top: 15px;
 	margin-left: 25px;
 	letter-spacing: 4px;
+}
+.smush {
+	margin-left: 25%;
+	width: 50%;
 }
 nav {
 	float: right;
@@ -56,6 +61,12 @@ nav ul li {
 	letter-spacing: 2px;
 	font-weight: bold;
 	transition: all 0.3s linear;
+}
+.list-group{
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
 }
 ul li a {
 	color: #FFFFFF;
@@ -182,6 +193,9 @@ footer {
 	background-color: #FFFFFF;
 	padding-bottom: 35px;
 }
+.menu {
+	margin-top: 15px;
+}
 .footer_column {
 	width: 50%;
 	text-align: center;
@@ -210,6 +224,15 @@ footer .footer_column p {
 	font-weight: lighter;
 	margin-left: 20px;
 	margin-right: 20px;
+}
+.number {
+	position: relative;
+	left:35%;
+	padding-left: 5px;
+	margin-left: 5px;
+    width: 75px;
+    border-radius: 5px;
+    border: #000000;
 }
 .button {
 	width: 200px;
@@ -257,7 +280,7 @@ footer .footer_column p {
 }
 .url{
 	position: relative; 
-	left: 50%; 
+	left: 35%; 
 	margin-left: -100px;
 	width: 200px;
 	border-radius: 5px;
@@ -265,7 +288,7 @@ footer .footer_column p {
 }
 .cdnbutton{
 	position: relative;
-	left: 51%; 
+	left: 36%; 
 }
 footer {
 	display: inline-block;
@@ -468,7 +491,9 @@ nav ul li {
 	width: 100%;
 }
 }
-
+.panel ul li a {
+	color: #333333;
+}
 /* Small Desktops */
 @media (min-width: 768px) and (max-width: 1096px) {
 .text_column {

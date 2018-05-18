@@ -10,6 +10,7 @@ var web3;
 var Contract;
 
 function app() {
+  
   // set up Metamask injected web3 provider
   if (typeof web3 == 'undefined') throw 'No web3 detected. Is Metamask/Mist being used?';
   web3 = new Web3(web3.currentProvider);
@@ -37,16 +38,69 @@ function app() {
       Contract.methods.getPublisher(userAccount).call().then(function (exists){
         console.log(exists);
       });
+      getPeers(false);
   /// </set up contract> ///
       //distribute(url) // ----> will get file. Use Pycurl?
     }).catch(console.error);
+}
+
+function getPeers(cdn) {
+  var str = "";
+  if (!cdn) {
+  Contract.methods.getPeers(userAccount).call({from: userAccount}).then(function (url) {
+    
+     str = url;
+     console.log(str);
+    var appendingTo = document.getElementById("pl"); // clear previous list, if it exists
+    while (appendingTo.firstChild) {
+      appendingTo.removeChild(appendingTo.firstChild);
+    }
+    var strs = str.split(',');
+    console.log(str)
+    var list = document.createElement("ul");
+    list.className = "list-group";
+    for (var i in strs) {
+      console.log(strs[i]);
+      var anchor = document.createElement("a");
+      anchor.innerText = strs[i];
+      var elem = document.createElement("li");
+      elem.appendChild(anchor);
+      list.appendChild(elem);
+      appendingTo.appendChild(list)
+    }
+   });
+}
+  if (cdn) {
+    Contract.methods.getPeers(userAccount).call({from: userAccount}).then(function (url) { //todo: get peers and statuses
+    
+     str = url;
+     console.log(str);
+    var appendingTo = document.getElementById("pl"); // clear previous list, if it exists
+    while (appendingTo.firstChild) {
+      appendingTo.removeChild(appendingTo.firstChild);
+    }
+    var strs = str.split(',');
+    console.log(str)
+    var list = document.createElement("ul");
+    list.className = "list-group";
+    for (var i in strs) {
+      console.log(strs[i]);
+      var anchor = document.createElement("a");
+      anchor.innerText = strs[i];
+      var elem = document.createElement("li");
+      elem.appendChild(anchor);
+      list.appendChild(elem);
+      appendingTo.appendChild(list)
+    }
+   });
+  }
 }
 
 
 function cdnIFY() { 
   // get text from text box input from CDN-ify
   var newUrl = document.getElementById("url").value;
-
+  var spent = document.getElementById("number").value;
   /// <do contract methods> ///
   Contract.methods.addUrl(newUrl).send({from: userAccount}).then(function (url) {
     if (url) { //url is a success boolean
@@ -61,6 +115,12 @@ function cdnIFY() {
     console.log(exists);
   });
 
+  Contract.methods.spend(userAccount, spent).send({from: userAccount}).then(function (url) {
+    if (url) { //url is a success boolean
+     console.log("User "+userAccount+" spent " + String(spent)+" tokens.");
+    }
+   });
+  getPeers(true)
 }
 
 ///// <helpers> /////
