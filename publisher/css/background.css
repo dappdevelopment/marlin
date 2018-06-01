@@ -1,0 +1,17 @@
+header, body #page, footer, body, #headersignup, #bodysignup, #bodysignup, #footnotesignup {
+background: linear-gradient(269deg, #ff3e3e, #ee6636, rgb(255, 130, 0), #fc674e, #ff5533, #F64D54);
+background-size: 1600% 1600%;
+
+-webkit-animation: backgroundGradient 20s ease infinite;
+animation: backgroundGradient 20s ease infinite;
+}
+@-webkit-keyframes backgroundGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 51%}
+    100%{background-position:0% 50%}
+}
+@keyframes backgroundGradient { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 51%}
+    100%{background-position:0% 50%}
+}

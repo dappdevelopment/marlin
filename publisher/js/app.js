@@ -59,14 +59,50 @@ function getPeers(cdn) {
     console.log(str)
     var list = document.createElement("ul");
     list.className = "list-group";
+    var index = 0;
     for (var i in strs) {
-      console.log(strs[i]);
-      var anchor = document.createElement("a");
-      anchor.innerText = strs[i];
-      var elem = document.createElement("li");
-      elem.appendChild(anchor);
-      list.appendChild(elem);
-      appendingTo.appendChild(list)
+      if (strs[i]!="") {
+        console.log(strs[i]);
+        var li = document.createElement("li");
+        li.className = "liClear"
+        var anchor = document.createElement("a");
+        anchor.className = "peerText";
+        anchor.innerText = strs[i];
+        var elem = document.createElement("button");
+        elem.className = "peerButton"
+        elem.id = "button"+String(index)
+        elem.appendChild(anchor);
+        li.appendChild(elem);
+        elem.onclick = function() {
+          var button = document.getElementById(this.id)
+          console.log(this.parentNode.childNodes)
+          if (this.parentNode.childNodes[1]!= null) {
+            this.parentNode.removeChild(this.parentNode.childNodes[1])
+          }
+          var url = "http://"+strs[this.id.substr(6)];
+          var http = new XMLHttpRequest();
+          http.open('HEAD', url, false);
+          http.send();
+          console.log(http.status)
+          if (http.status == 404) {
+            var failure = document.createElement("a")
+            failure.innerText = "offline"
+            failure.className = "failure"
+            console.log(this)
+            this.parentNode.appendChild(failure)
+          } else {
+            var success = document.createElement("a")
+            success.innerText = "online"
+            success.className = "success"
+            this.parentNode.appendChild(success)
+          }
+        }
+        
+        list.appendChild(li);
+
+        appendingTo.appendChild(list)
+        index+=1;
+      }
     }
    });
 }
