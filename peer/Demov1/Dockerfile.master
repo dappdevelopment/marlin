@@ -1,0 +1,36 @@
+FROM node:10-alpine as base
+
+RUN apk add --no-cache git python make g++
+
+WORKDIR /home/node/master/
+RUN chown node /home/node/master/
+
+COPY --chown=node . .
+
+ENV NODE_ENV="production"
+
+USER node
+RUN npm install
+
+#---------------- FINAL IMAGE ------------------#
+# Base node image
+FROM node:10-alpine
+
+# Port exposed by master
+EXPOSE 8000
+
+# Working directory with proper permissions
+WORKDIR /home/node/master/
+RUN chown node /home/node/master/
+
+# Copy code
+COPY --chown=node . .
+
+# Set production environment
+ARG NODE_ENV=production
+ENV NODE_ENV="${NODE_ENV}"
+
+# Install dependencies and run as node user
+USER node
+COPY --chown=node --from=base /home/node/master/node_modules ./node_modules
+CMD node servers/masterServer.js

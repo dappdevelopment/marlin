@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Client</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+<!--     <link href="https://unpkg.com/video.js@6.2.5/dist/video-js.min.css" rel="stylesheet">
+ -->    <link href="js/videojs/video-js.css" rel="stylesheet">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+<!--     <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+    <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script> -->
+
+<!--     <script src="https://unpkg.com/video.js@6.2.1/dist/video.min.js"></script>
+    <script src="https://unpkg.com/videojs-flash@2.0.0/dist/videojs-flash.min.js"></script> -->
+
+    <script src="js/videojs/video.dev.js"></script>
+    <script src="js/videojs-media-sources.js"></script>
+    <script src="js/videojs.hls.orig.js"></script>
+
+    <script src="js/buffer.js"></script>
+    <script src="js/ethereumjs.js"></script>
+    <script src="js/peer1.js"></script>
+    <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+    <script src="js/pusherClient.js"></script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default header3">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img src="img/Logo.svg" width="220px" alt="logo">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://demo.marlin.pro:8003" class="" >Dashboard</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" class="active">Client</a></li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+    <!-- First Container -->
+    <div class="container-fluid bg-1" style="padding-right:0px;padding-left:0px;">
+      <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="card wizard-card" data-color="red" id="wizard" style="padding:25px">
+          <!--<embed width="100%" height="420" style="padding:30px;"
+          src="https://www.youtube.com/v/tgbNymZ7vqY"> -->
+            <video id="video"
+                 class="video-js vjs-default-skin centervideo"
+                 width="640"  
+                 height="350"
+                 controls>
+            </video>
+
+          <form id="videoSubmitForm" style="margin: 0 auto; width:300px; margin-top:20px">
+            <select id="videoSource" name="videoSource">
+              <option value="video0.m3u8">Bunny Video</option>
+              <option value="video1.m3u8">Snow Video 1</option>
+              <option value="video2.m3u8">Snow Video 2</option>
+            </select>
+            <button class="bg-purple-gardient mybase2 border-radius-23" type="submit" style="margin-bottom: 0">Submit</button>
+          </form>
+
+
+          <h4>Instructions:</h4>
+
+          <ul>
+            <li>Run on desktop using chrome browser</li>
+            <li>Make sure the flash settings are enabled to "allow"</li>
+          </ul>
+
+
+          <script>
+            // initialize the player
+            // var player = videojs('video');
+            var player = videojs('video');
+            //  videojs.options.hls.overrideNative = true;
+            videojs.options.html5.nativeAudioTracks = false;
+            videojs.options.html5.nativeVideoTracks = false;
+
+            
+            // event handler
+            $("#videoSubmitForm").submit(function(e){
+              var videoSource = $('#videoSource').val();
+              window.location.href = window.location.pathname+"?"+$.param({'videoSource':videoSource});
+
+              // player.reset();
+              // console.log(videoSource);
+              // player.src({ type: "application/x-mpegURL", src: "http://cdn.demo-v2.marlin.pro:80/"+videoSource });
+
+              //$("#video")[0].load();
+            });
+
+            window.onload = changeSource;
+            function changeSource() {
+              let params = (new URL(document.location)).searchParams;
+              let videoSource = params.get("videoSource");
+              if (videoSource == null){
+                player.src({ type: "application/x-mpegURL", src: "http://cdn.demo-v2.marlin.pro:80/video0.m3u8"});
+              }
+              else {
+                $('#videoSource').val(videoSource);
+                player.src({ type: "application/x-mpegURL", src: "http://cdn.demo-v2.marlin.pro:80/"+videoSource });
+              }
+
+              // if (videoSource == null) {
+              //   player.src({ type: "application/x-mpegURL", src: "http://localhost:81/video0.m3u8"});
+              // }
+              // else {
+              //   $('#videoSource').val(videoSource);
+              //   player.src({ type: "application/x-mpegURL", src: "http://localhost:81/"+videoSource });
+              // }
+            }
+
+          </script>
+
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 col-xs-12 console">
+        <center>
+        <button class="bg-purple-gardient base border-radius-23" style="margin-top:20px ;margin-bottom:10px;font-size:20px;">Console</button></center>
+        <div id="myconsole" style="padding:20px">
+
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      readCookies();
+    </script>
+
+  </body>
+</html>

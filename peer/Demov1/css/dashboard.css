@@ -1,0 +1,26 @@
+.console {
+    height: 150px; 
+    overflow-y: scroll; 
+    background-color: black; 
+    color: green; 
+    padding: 10px; 
+    border-radius: 5px;
+}
+
+.master {
+    overflow-y: scroll;
+}
+
+.navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 17px;
+	  font-weight:600;
+  }
+  
+.navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }

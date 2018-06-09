@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Publisher</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+    <script src="js/pusherClient.js"></script>
+  </head>
+  <body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-default header3">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#">
+            <img src="img/Logo.svg" width="220px" alt="logo">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"  class="active" >Publisher</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- First Container -->
+    <div class="container-fluid bg-1" style="padding-right:0px;padding-left:0px;">
+      <div class="col-md-6 col-xs-12 col-xs-12">
+        <div class="card wizard-card" data-color="red" id="wizard">
+          <form action="#" style="padding:20px;">
+            <div>
+              <h3 style="text-align:center;">Add file</h3>
+              <div class="form-box inputField">
+                <input type="text" name="fileName[]" class="form-control custome_text mb-1" placeholder="Enter file name"/>
+              </div><!-- /.form-box -->
+              <div class="btn-submit">
+                <button class="bg-purple-gardient base border-radius-23" id="submitButton">Submit</button>
+                
+                <button class="bg-purple-gardient base border-radius-23 addInput" style="width:120px;">Add</button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-xs-12 console">
+        <center>
+        <button class="bg-purple-gardient base border-radius-23" style="margin-top:20px ;margin-bottom:10px;font-size:20px;">Console</button></center>
+        <div id="myconsole" style="padding:20px">
+        </div>
+      </div>
+      
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        var maxInputBoxes = 100; //Max input fields
+        var wrapper = $(".inputField"); //Fields wrapper
+        var addInput = $(".addInput"); //Add button ID
+        var submitButton = $("#submitButton");
+
+        var x = 2; //initlal text box count
+        $(addInput).click(function(e) { //Add input field 
+          e.preventDefault();
+          if (x < maxInputBoxes) {
+            x++;
+            $(wrapper).append('<div><input type="text" name="fileName[]" class="form-control custome_text mb-1" placeholder="Enter file name" style="margin-top:20px;"/><label id="removeInput" style="font-size:14px;color:red;float: right;margin-top: -30px;margin-right: 100px;">Remove</label></div>'); //Add input box
+            }
+        });
+
+        $(wrapper).on("click", "#removeInput", function(e) { //Remove this input field
+          e.preventDefault();
+          $(this).parent('div').remove();
+          x--;
+        })
+
+        $(submitButton).click(function(e) {
+          e.preventDefault();
+          var fileNames = $("input[name='fileName[]']").map(function() {
+            return $(this).val();
+            }).get();
+          console.log(fileNames);
+          $.get('/postResourceToMaster', {
+            'fileNames': fileNames
+          });
+          $(wrapper).html('<input type="text" name="fileName[]" class="form-control custome_text mb-1" placeholder="Enter file name"/> <!-- /.form-box -->');
+        })
+      });
+    </script>
+
+    <script>
+      var publisherChannel = pusher.subscribe('publisher');
+      publisherChannel.bind(eventname, function(data) {
+        console.log('An event was triggered with message: ' + data.message);
+        appendToConsole(data.message);
+      });
+    </script>
+  </body>
+</html>

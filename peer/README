@@ -1,5 +1,0 @@
-## Setup and run
-```
-pip install -r requirements.txt
-python api.py
-```

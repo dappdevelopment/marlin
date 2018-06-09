@@ -1,0 +1,156 @@
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+	  overflow:hidden;
+  }
+  @media screen and (min-width:321px) and (max-width:768px) {
+    body {
+        overflow:auto;
+    }
+}
+  
+  
+  p {font-size: 15px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background-color: #e4dfdf7d;
+      color: #444;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 17px;
+	  font-weight:600;
+  }
+  
+.navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+.active {
+    border-bottom: 3px solid #f44336;
+}
+
+  .wizard-card {
+  margin:50px;
+    min-height: 410px;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	background-color:#fff;
+}
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+    display: inline-block;
+    color: #fff;
+    padding: 0px 27px 0 27px;
+    height: 48px;
+    line-height: 42px;
+    font-size: 14px;
+    color: #ffffff;
+    background: #1490d7;
+    border-radius: 2px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+    line-height: 1;
+    cursor: pointer;
+    -webkit-appearance: button;
+    border: none;
+}
+.flat-button-styles ul.list-button-styles li button {
+    border-width: 2px;
+}
+.base {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+}
+.mybase {
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+    margin-left: 150px;
+    margin-top: 100px;
+}
+.mybase2 {
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+}
+.header3 {
+    background-color: #fcfcfc;
+    box-shadow: 0px 5px 20px #bebebe;
+    position: relative;
+    z-index: 250;
+}
+.border-radius-23 {
+    border-radius: 23px;
+}
+.bg-purple-gardient {
+    background: -webkit-linear-gradient(to right, rgba(255, 170, 35, 0.98) 0%, rgba(239, 73, 73, 0.99) 100%);
+    background: -moz-linear-gradient(to right, rgba(255, 170, 35, 0.98) 0%, rgba(239, 73, 73, 0.99) 100%);
+    background: -ms-linear-gradient(to right, rgba(255, 170, 35, 0.98) 0%, rgba(239, 73, 73, 0.99) 100%);
+    background: -o-linear-gradient(to right, rgba(255, 170, 35, 0.98) 0%, rgba(239, 73, 73, 0.99) 100%);
+	background: linear-gradient(to right, rgba(255, 170, 35, 0.98) 0%, rgba(239, 73, 73, 0.99) 100%);
+    position: relative;
+    margin-bottom: 5%;
+    color: white;
+}
+.form-box {
+    margin-bottom: 24px;
+	margin-left:90px;
+	
+}
+.btn-submit{
+	margin-left:90px;
+	
+}
+.form-box input {
+    border-radius: 200px;
+	padding-left:20px;
+    border: 1px solid #e5e5e5;
+    height: 50px;
+	width: 60%
+}
+input:focus{
+    outline: none;
+}
+button:focus{
+    outline: none;
+}
+.console{
+height: 700px;
+    overflow-x: auto;
+	overflow-y: scroll;
+    background-color: white;
+    padding:2%;
+    box-shadow: -10px 0px 30px #c1bfbf;
+    position: relative;
+    z-index: 150;
+	text-align:justify;
+}
+.centervideo{
+ margin: auto;
+ display: block
+}

@@ -1,0 +1,68 @@
+version: "2.1"
+services:
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile.master
+    ports:
+    - "80:8000"
+    image: registry.marlin.pro/master-v3:latest
+    depends_on:
+      geth:
+        condition: service_healthy
+    networks:
+    - private
+    container_name: master
+
+  relay:
+    build:
+      context: .
+      dockerfile: Dockerfile.relay
+    ports:
+    - "80:8000"
+    image: registry.marlin.pro/relay-v3:latest
+    depends_on:
+      geth:
+        condition: service_healthy
+    networks:
+    - private
+    container_name: relay
+
+  geth:
+    image: registry.marlin.pro/geth:latest
+    ports:
+    - "30311:30311"
+    - "30311:30311/udp"
+    networks:
+    - private
+    command: --port 30311 --networkid=56513 --ws --wsaddr 0.0.0.0 --wsport 8546 --wsorigins="*" --rpc --rpcaddr 0.0.0.0 --rpccorsdomain="*" --rpcvhosts="*" --rpcapi 'personal,db,eth,net,web3,txpool,miner' --bootnodes 'enode://b80b743a71a3bf48ea77beb12b244bb52da1f1819e5db5f1d79a86920b315a6d135dfd4a034b3365bb680a04a38044eba7a3026509a717877fd9a04a63e0a680@35.198.205.146:30310'
+    container_name: geth
+    volumes:
+    - geth-data:/root/.ethereum
+    healthcheck:
+      test: nc -z localhost 8545 && nc -z localhost 8546
+      interval: 5s
+      timeout: 20s
+      retries: 100
+
+  ethnetintel:
+    image: registry.marlin.pro/ethnetintel:latest
+    environment:
+    - RPC_HOST=geth
+    - LISTENING_PORT=30311
+    - WS_SERVER="wss://stats.demov3.marlin.pro/"
+    - WS_SECRET
+    - INSTANCE_NAME
+    depends_on:
+      geth:
+        condition: service_healthy
+    networks:
+    - private
+    container_name: ethnetintel
+
+networks:
+  private:
+    driver: bridge
+
+volumes:
+  geth-data:

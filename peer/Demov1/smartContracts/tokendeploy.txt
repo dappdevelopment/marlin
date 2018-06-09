@@ -1,0 +1,22 @@
+https://medium.com/mercuryprotocol/dev-highlights-of-this-week-cb33e58c745f
+
+personal.unlockAccount(eth.coinbase)
+
+geth console 2>> /dev/null
+
+
+https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console#adminstartrpc
+
+Note that by default the geth node doesn't start the http and weboscket service and not all functionality is provided over these interfaces due to security reasons. These defaults can be overridden when the --rpcapi and --wsapi arguments when the geth node is started, or with admin.startRPC and admin.startWS.
+
+
+admin.startRPC("127.0.0.1", 8545, "*", "web3,db,net,eth")
+
+
+
+
+solc --bin marlin_token.sol >> marlin_token.bin
+solc --abi marlin_token.sol >> marlin_token.abi
+
+
+geth --rinkeby --rpcapi eth,web3,personal --rpc console 2>>/dev/null

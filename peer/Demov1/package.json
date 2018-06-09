@@ -1,0 +1,28 @@
+{
+  "name": "Demov1",
+  "version": "1.0.0",
+  "description": "root directory : YCDemo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "fs-path": "0.0.24",
+    "md5-file": "^4.0.0",
+    "mkdirp": "^0.5.1",
+    "package.json": "^2.0.1",
+    "pg": "^7.4.3",
+    "pg-promise": "^8.4.4",
+    "pusher": "^1.5.1",
+    "request": "^2.86.0",
+    "request-promise": "^4.2.2",
+    "tweetnacl": "^1.0.0",
+    "web3": "^1.0.0-beta.34",
+    "ws": "^5.1.1"
+  }
+}
