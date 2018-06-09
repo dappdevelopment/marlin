@@ -87,7 +87,7 @@ contract Marlin {
         return publishers[_addr].numUrls;
     }
     function getPeers(address _addr) public view returns (string) {
-        return "0x0,0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,0x9,";
+        return "18.197.186.218,52.76.53.156,18.196.2.34/x,52.44.34.102,18.196.2.34,13.250.127.173,34.226.154.34,54.93.201.218,52.221.185.33,54.208.29.125";
     }
 
     function addUrl(string url) public returns (bool success) {

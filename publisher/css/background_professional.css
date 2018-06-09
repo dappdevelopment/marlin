@@ -1,0 +1,51 @@
+body #page, body, #headersignup, #bodysignup, #bodysignup, #footnotesignup {
+  background-color: rgba(255, 227, 227, .2);
+  animation: bg-color 10s infinite;
+  -webkit-animation: bg-color 35s infinite;
+}
+
+@-webkit-keyframes bg-color {
+  0% { background-color: rgba(255, 227, 227, .2); }
+  20% { background-color: rgba(238, 102, 54, .2); }
+  40% { background-color: rgba(255, 130, 0, .2); }
+  60% { background-color: rgba(252, 103, 78, .2); }
+  80% { background-color: rgba(255, 85, 51, .2); }
+  100% { background-color: rgba(255, 227, 227, .2); }
+}
+
+@keyframes bg-color {
+  0% { background-color: rgba(255, 227, 227, .2); }
+  20% { background-color: rgba(238, 102, 54, .2); }
+  40% { background-color: rgba(255, 130, 0, .2); }
+  60% { background-color: rgba(252, 103, 78, .2); }
+  80% { background-color: rgba(255, 85, 51, .2); }
+  100% { background-color: rgba(255, 227, 227, .2); }
+}
+
+#header, footer {
+	background-color: #FF4A4A;
+  animation: bg-colors 10s infinite;
+  -webkit-animation: bg-colors 35s infinite;
+}
+
+@-webkit-keyframes bg-colors {
+  0% { background-color: #FF4A4A; }
+  20% { background-color: rgba(238, 102, 54, 1); }
+  40% { background-color: rgba(255, 130, 0, 1); }
+  60% { background-color: rgba(252, 103, 78, 1); }
+  80% { background-color: rgba(255, 85, 51, 1); }
+  100% { background-color: #FF4A4A; }
+}
+
+@keyframes bg-colors {
+  0% { background-color: #FF4A4A; }
+  20% { background-color: rgba(238, 102, 54, 1); }
+  40% { background-color: rgba(255, 130, 0, 1); }
+  60% { background-color: rgba(252, 103, 78, 1); }
+  80% { background-color: rgba(255, 85, 51, 1); }
+  100% { background-color: #FF4A4A; }
+}
+
+footer {
+	: 100%;
+}

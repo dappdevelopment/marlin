@@ -5,23 +5,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marlin Publisher App</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link href="css/app.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://dapps.stanford.edu/web3/web3-1.0.0-beta.34.min.js"></script>
+
+
 <script src="http://use.edgefonts.net/source-sans-pro:n2:default.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://dapps.stanford.edu/web3/web3-1.0.0-beta.34.min.js"></script>
 <script src="js/app.js" type="text/javascript"></script>
 </head>
 <body onload="updateAccounts()">
 <!-- Main Container -->
-<div class="container"> 
   <!-- Navigation -->
-  <header> <a href="">
-    <h4 class="logo">MARLIN PUBLISHER</h4>
+  <header> <a href="index.html">
+<img class="logo" src="Logo.svg"></img>
     </a>
     <nav>
       <ul>
-        <li><a href="index.html">CDN-IFY</a></li>
-      <li><a href="#" onclick="updateAccounts()">ACCOUNT</a></li>
+        <li class="menu"><a href="index.html">CDN-IFY</a></li>
+        <li class="menu"><a href="#" onclick="updateAccounts()">ACCOUNT</a></li>
+        <li class="menu"><a href="http://demo.marlin.pro">PEERS</a></li>
       </ul>
     </nav>
   </header>
@@ -30,8 +34,6 @@
   <div class="gallery">
     <div class="thumbnail">
       <h1 class="stats" id="balance"></h1>
-      <script>
-</script>
       <h4>BALANCE</h4>
       <p>How much is in the bank</p>
     </div>
@@ -40,17 +42,21 @@
       <h4>SPENT</h4>
       <p>How much you've spent total</p>
     </div>
+  </div>
+   <div class="gallery">
     <div class="thumbnail">
       <h1 class="stats" id="history"></h1>
-    <button onclick="getHistory()">URL HISTORY</button>
+    <button class="cdnbutton wh" onclick="getHistory()">URL History</button>
       <p>How many URLs you've uploaded</p>
     </div>
     <div class="thumbnail">
       <h1 class="stats" id="live"></h1>
-    <button onclick="getLive()">LIVE URLS</button>
+    <button class="cdnbutton wh" onclick="getLive()">Live URLs</button>
       <p>How many URLs are live</p>
     </div>
   </div>
+  <link href="css/app.css" rel="stylesheet" type="text/css">
+
   
 
 </div>
