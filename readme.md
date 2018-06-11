@@ -12,7 +12,7 @@ http://www.marlin.pro
   - Install MetaMask and get Ether from Rinkeby TestNet
   - Install npm and lite-server, start server using `npm start`
   - If using Ganache local Ethereum node with Truffle installed, change configuration files accordingly and run `truffle migrate --reset`
-  - Enjoy! 
+  - If you don't have MetaMask, you can view the demo here: https://m.youtube.com/watch?v=RmLZ2VDVQHI
 
 # FAQ
  - Q: Can I see Marlin in action without running locally?
