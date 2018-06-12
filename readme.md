@@ -94,6 +94,7 @@ The publisher of this dapp uses a Solidity contract that talks to the front end,
 We often get asked how we are going to control the type of content on Marlin. As with a traditional CDN company, we are going to try to prevent illegal content from being on our network. If you have ideas about how to do this, please contact us!
 
 # Future Plans
-Both Praty and Josh are going to continue to work on this, along with a team of around 8 (at the moment) from MIT, ITT Bombay, and Stanford. If you have any questions or want to get in touch, you can contact Praty or Josh at {praty, joshp007} at stanford.edu.
+Both Praty and Josh are going to continue to work on this, along with a team of around 8 (at the moment) from MIT, ITT Bombay, and Stanford. 
+If you have any questions or want to get in touch, you can contact Praty or Josh at {praty, joshp007}@stanford.edu.
 
 *We're streamlining the world's information by putting the internet back into your hands.*
