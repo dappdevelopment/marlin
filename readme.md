@@ -12,7 +12,6 @@ http://www.marlin.pro
   - Install MetaMask and get Ether from Rinkeby TestNet
   - Install npm and lite-server, start server using `npm start`
   - If using Ganache local Ethereum node with Truffle installed, change configuration files accordingly and run `truffle migrate --reset`
-  - Uncomment lines in publisher/js/app.js that handle http requests to make calls to the peer nodes once the peer is set up
   - If you don't have MetaMask, you can view the demo here: https://m.youtube.com/watch?v=RmLZ2VDVQHI
 
 ### Peer
