@@ -95,6 +95,7 @@ We often get asked how we are going to control the type of content on Marlin. As
 
 # Future Plans
 Both Praty and Josh are going to continue to work on this, along with a team of around 8 (at the moment) from MIT, ITT Bombay, and Stanford. 
+#####
 If you have any questions or want to get in touch, you can contact Praty or Josh at {praty, joshp007}@stanford.edu.
 
 *We're streamlining the world's information by putting the internet back into your hands.*
