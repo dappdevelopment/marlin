@@ -8,11 +8,66 @@ http://www.marlin.pro
 
 
 # How to use
-
+### Publisher
   - Install MetaMask and get Ether from Rinkeby TestNet
   - Install npm and lite-server, start server using `npm start`
   - If using Ganache local Ethereum node with Truffle installed, change configuration files accordingly and run `truffle migrate --reset`
+  - Uncomment lines in publisher/js/app.js that handle http requests to make calls to the peer nodes once the peer is set up
   - If you don't have MetaMask, you can view the demo here: https://m.youtube.com/watch?v=RmLZ2VDVQHI
+
+### Peer
+
+root directory : peer/Demov1
+
+from commandline root directory :
+
+- Start the servers
+  - publisher server: node servers/pubServer.js
+  - master server: node servers/masterServer.js
+  - relay server: node servers/relayServer.js
+
+From browser:
+
+- Upload using publisher page following files:
+  - output.m3u8,resource0.ts,resource1.ts,resource2.ts,resource3.ts,resource4.ts,resource5.ts
+
+- open:
+  - client page: http://demo.marlin.pro:8000/ (content served from master)
+  - second client: same url as above (content served from relay)
+
+
+
+VERY IMPORTANT:
+
+`geth --rinkeby --rpc --rpcapi web3,eth,personal,miner,net,txpool`
+
+
+
+changes to run locally:
+
+1. masterServer.js
+	httpport: 81
+2. relayServer.js
+	httpport: 82
+
+3. newclient.html:
+	```if (videoSource == null){
+                player.src({ type: "application/x-mpegURL", src: "http://cdn.demo-v2.marlin.pro:80/video0.m3u8"});
+              }
+              else {
+                $('#videoSource').val(videoSource);
+                player.src({ type: "application/x-mpegURL", src: "http://cdn.demo-v2.marlin.pro:80/"+videoSource });
+              }```
+
+4. uncomment ipsetup() masterServer.js
+5. uncomment 145 and comment 159 relayserver.js
+6. const client = new pg.Client(util.postgresOptions2); master, relay, dashboard
+
+7. ethhost to geth master and relay
+
+LIN: 0xF3a55b446Dcc78cD431f4EC6335C50057334CAed
+Certificate: 0x60b5f36b62e492c47d7d66b15d9ba9091f18eb5c 
+
 
 # FAQ
  - Q: Can I see Marlin in action without running locally?
